@@ -1,3 +1,4 @@
+
 DROP DATABASE IF EXISTS employees;
 CREATE DATABASE employees;
 USE employees;
@@ -18,14 +19,14 @@ CREATE TABLE role(
 
 CREATE TABLE employee(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(30),
-    last_name VARCHAR(30),
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT NOT NULL,
+    manager_id INT,
     INDEX role_ind (role_id),
     INDEX manager_ind (manager_id),
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
-    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE CASCADE
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
 
 
