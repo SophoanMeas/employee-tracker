@@ -31,7 +31,7 @@ const promptUser = () => {
         choices: [
           {
             name: "View All Employees",
-            value: "1"
+            value: "1",
           },
           {
             name: "View Employees by Department",
@@ -99,7 +99,32 @@ const promptUser = () => {
           choice.viewAllEmployee();
           break;
         case 2:
+          choice.viewEmployeeByDepartment();
           break;
+        case 3:
+          break;
+          case 4:
+            break;
+            case 5:
+            break;
+            case 6:
+            break;
+            case 7:
+            break;
+            case 8:
+            break;
+            case 9:
+            break;
+            case 10:
+            break;
+            case 11:
+            break;
+            case 12:
+            break;
+            case 13:
+            break;
+            case 14:
+            break;
         default:
           choice.exist();
       }
