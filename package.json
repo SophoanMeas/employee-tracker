@@ -4,6 +4,8 @@
   "description": "Challenge #12",
   "main": "server.js",
   "dependencies": {
+    "chalkercli": "^1.6.4",
+    "console-table-printer": "^2.11.0",
     "dotenv": "^16.0.1",
     "inquirer": "^8.2.4",
     "mysql2": "^2.3.3",
