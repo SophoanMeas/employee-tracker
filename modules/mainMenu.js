@@ -1,6 +1,6 @@
 const chalkAnimation = require("chalkercli");
 const inquirer = require("inquirer");
-const choice = require("./selection");
+const choice = require("../models/Employee");
 
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
@@ -102,6 +102,8 @@ const promptUser = () => {
           choice.viewEmployeeByDepartment();
           break;
         case 3:
+          promptAddEmployee;
+          choice.addEmployee();
           break;
           case 4:
             break;

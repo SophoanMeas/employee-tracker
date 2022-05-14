@@ -1,7 +1,7 @@
 const connection = require('./config/connection')
 const chalkAnimation = require('chalkercli');
 
-const {init} = require('./modules/menu')
+const {init} = require('./modules/mainMenu')
 
 const PORT = process.env.PORT || 3001;
 const db = process.env.DB_NAME;
