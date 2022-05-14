@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "chalkercli": "^1.6.4",
+    "cli-color": "^2.0.2",
     "console-table-printer": "^2.11.0",
     "dotenv": "^16.0.1",
     "inquirer": "^8.2.4",

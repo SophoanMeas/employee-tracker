@@ -1,10 +1,9 @@
 const chalkAnimation = require("chalkercli");
-const display = require('./Display')
+const display = require("./Display");
 const conn = require("../config/connection");
-// const { Table } = require("console-table-printer");
 
 class Selection {
-  viewAllEmployee() {
+  async viewAllEmployee() {
     const sql = `SELECT employee.id, 
     employee.first_name, 
     employee.last_name, 
@@ -18,11 +17,18 @@ class Selection {
     LEFT JOIN employee manager ON employee.manager_id = manager.id
     ORDER BY employee.last_name`;
 
-    conn.execute(sql, (err, rows) => {
-      if (err) throw err;
+    // conn.execute(sql, (err, rows) => {
+    //   if (err) throw err;
+    //   console.log("");
+    //   display.printAllEmployee(rows);
+    // });
+    conn.promise().query(sql)
+    .then(([rows]) => {
       console.log("");
       display.printAllEmployee(rows);
-    });
+    })
+    .catch(console.log)
+    .then( () => conn.end());
   }
 
   viewEmployeeByDepartment() {
@@ -32,19 +38,22 @@ class Selection {
     LEFT JOIN department ON role.department_id = department.id
     ORDER BY department.name ASC`;
 
-    conn.execute(sql, (err, rows) => {
-      if (err) throw err;
+    conn.promise().query(sql)
+    .then(([rows]) => {
       console.log("");
       display.printEmployeeByDepartment(rows);
-    });
+    })
+    .catch(console.log)
+    .then( () => conn.end());
   }
 
-  addEmployee(){
-    conn.execute(sql, (err, rows) => {
-        if (err) throw err;
-        console.log("");
-        // this.printAllEmployee(rows);
-      });
+  addEmployee() {
+    // const sql = ``;
+    // conn.execute(sql, (err, rows) => {
+    //     if (err) throw err;
+    //     console.log("");
+    //     // this.printAllEmployee(rows);
+    //   });
   }
 
   exist() {

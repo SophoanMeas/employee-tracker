@@ -1,7 +1,7 @@
 const chalkAnimation = require("chalkercli");
 const inquirer = require("inquirer");
 const choice = require("../models/Employee");
-
+const {addEmployee, hi} = require('./secondMenu')
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
 ██╔════╝████╗ ████║██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝██╔════╝██╔════╝    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
@@ -31,7 +31,7 @@ const promptUser = () => {
         choices: [
           {
             name: "View All Employees",
-            value: "1",
+            value: 1,
           },
           {
             name: "View Employees by Department",
@@ -95,15 +95,15 @@ const promptUser = () => {
       const selection = ans.choice;
 
       switch (selection) {
-        case "1":
+        case 1:
           choice.viewAllEmployee();
           break;
         case 2:
           choice.viewEmployeeByDepartment();
           break;
         case 3:
-          promptAddEmployee;
-          choice.addEmployee();
+          addEmployee();
+          // choice.addEmployee();
           break;
           case 4:
             break;
@@ -131,7 +131,7 @@ const promptUser = () => {
           choice.exist();
       }
 
-      choice.exist();
+      // choice.exist();
     });
 };
 
