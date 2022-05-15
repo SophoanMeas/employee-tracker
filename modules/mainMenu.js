@@ -1,7 +1,7 @@
 const chalkAnimation = require("chalkercli");
 const inquirer = require("inquirer");
 const choice = require("../models/Employee");
-const {addEmployee, hi} = require('./secondMenu')
+const {addEmployeeMenu} = require('./addMenu')
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
 ██╔════╝████╗ ████║██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝██╔════╝██╔════╝    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
@@ -102,7 +102,7 @@ const promptUser = () => {
           choice.viewEmployeeByDepartment();
           break;
         case 3:
-          addEmployee();
+          addEmployeeMenu();
           // choice.addEmployee();
           break;
           case 4:
