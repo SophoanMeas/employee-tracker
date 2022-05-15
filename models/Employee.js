@@ -32,8 +32,16 @@ class Employee {
       .catch(console.log);
   }
 
-  viewEmployeeByDepartment() {
-    // .then(() => conn.end());
+  viewAllDepartment() {
+    const sql = `SELECT * FROM department`;
+
+    conn
+    .promise()
+    .query(sql)
+    .then(([rows]) => {
+      display.printAllDepartment(rows);
+    })
+    .catch(console.log);
   }
 
   viewEmployeesByManager() {

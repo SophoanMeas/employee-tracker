@@ -133,6 +133,7 @@ const promptUser = () => {
         case 10:
           break;
         case 11:
+          employee.viewAllDepartment();
           break;
         case 12:
           addDepartmentMenu();

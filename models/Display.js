@@ -98,7 +98,7 @@ class Display {
         {
           name: "title",
           title: "Department Name",
-          alignment: "center",
+          alignment: "left",
           color: "green",
         },
       ],
