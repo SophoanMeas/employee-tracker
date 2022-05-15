@@ -1,6 +1,7 @@
 const inquirer = require("inquirer");
 const cl = require("cli-color");
-const { getRole, getManager, addEmployee } = require("../models/Employee");
+const { getRole, getManager, addEmployee, addDepartment } = require("../models/Employee");
+
 
 function error(string) {
   return console.log(cl.redBright.bold(string));
@@ -11,7 +12,7 @@ function checkString(str) {
 }
 
 const addEmployeeMenu = () => {
-  return inquirer
+ return inquirer
     .prompt([
       {
         type: "input",
@@ -53,12 +54,12 @@ const addEmployeeMenu = () => {
               name: "role",
               message: "What is the employee's role?",
               choices: roles,
+              loop: false,
             },
           ])
           .then((selectedRole) => {
             const role = selectedRole.role;
-            params.push(role);
-
+            params.push(role[0]);
             getManager().then((manager) => {
               inquirer
                 .prompt([
@@ -67,20 +68,42 @@ const addEmployeeMenu = () => {
                     name: "manager",
                     message: "Who is the manager?\n",
                     choices: manager,
+                    loop: false,
                   },
                 ])
                 .then((selectedManager) => {
+                 
                   const mgr = selectedManager.manager;
                   params.push(mgr);
-
                   addEmployee(params);
                 });
             });
           });
       });
-    });
+    })
 };
+
+const addDepartmentMenu = ()=>{
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'department',
+      message: 'What department do you want to add?',
+      validate: (input) => {
+        if (checkString(input)) {
+          return true;
+        } else {
+          error(" Please enter a valid department name!");
+        }
+      },
+    }
+    
+  ]).then(ans =>{
+    addDepartment(ans.department);
+  })
+}
 
 module.exports = {
   addEmployeeMenu,
+  addDepartmentMenu,
 };

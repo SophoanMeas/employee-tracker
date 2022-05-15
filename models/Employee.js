@@ -2,8 +2,9 @@ const chalkAnimation = require("chalkercli");
 const display = require("./Display");
 const conn = require("../config/connection");
 const cl = require("cli-color");
-class Selection {
-  async viewAllEmployee() {
+
+class Employee {
+  viewAllEmployee() {
     const sql = `SELECT employee.id, 
     employee.first_name, 
     employee.last_name, 
@@ -26,29 +27,29 @@ class Selection {
       .promise()
       .query(sql)
       .then(([rows]) => {
-        console.log("");
         display.printAllEmployee(rows);
       })
-      .catch(console.log)
-      .then(() => conn.end());
+      .catch(console.log);
   }
 
   viewEmployeeByDepartment() {
-    const sql = `SELECT employee.id, employee.first_name, employee.last_name, department.name AS dep
+    // .then(() => conn.end());
+  }
+
+  viewEmployeesByManager() {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role
     FROM employee
     LEFT JOIN role ON employee.role_id = role.id
-    LEFT JOIN department ON role.department_id = department.id
-    ORDER BY department.name ASC`;
+    WHERE role.title IN ('Manager', 'Department Manager', 'Chief Executive Officer')
+    ORDER BY role.title ASC`;
 
     conn
       .promise()
       .query(sql)
       .then(([rows]) => {
-        console.log("");
-        display.printEmployeeByDepartment(rows);
+        display.printEmployeeByManager(rows);
       })
-      .catch(console.log)
-      .then(() => conn.end());
+      .catch(console.log);
   }
 
   addEmployee(params) {
@@ -65,8 +66,24 @@ class Selection {
           )
         )
       )
-      .catch(console.log)
-      .then(() => conn.end());
+      .catch(console.log);
+  }
+
+  addDepartment(param) {
+    const sql = `INSERT INTO department (name)
+                VALUES (?)`;
+
+    conn
+      .promise()
+      .query(sql, param)
+      .then(() =>
+        console.log(
+          cl.blueBright.bgWhite(
+            `${param} department added successfully`
+          )
+        )
+      )
+      .catch(console.log);
   }
 
   getRole() {
@@ -75,7 +92,10 @@ class Selection {
     return new Promise((resolve, reject) => {
       conn.execute(sql, (err, data) => {
         if (err) throw err;
-        const role = data.map(({ id, title }) => ({ name: title, value: id }));
+        const role = data.map(({ id, title }) => ({
+          name: title,
+          value: [id, title],
+        }));
         if (err) {
           reject(err);
           return;
@@ -85,6 +105,29 @@ class Selection {
     });
   }
 
+  getEmployee() {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role_title
+                FROM employee
+                LEFT JOIN role ON employee.role_id = role.id
+                ORDER BY employee.last_name ASC`;
+
+    return new Promise((resolve, reject) => {
+      conn.execute(sql, (err, data) => {
+        if (err) throw err;
+        const employee = data.map(
+          ({ id, first_name, last_name, role_title }) => ({
+            name: `${first_name}, ${last_name} - ${role_title}`,
+            value: id,
+          })
+        );
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(employee);
+      });
+    });
+  }
   getManager() {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role_title
                 FROM employee
@@ -96,7 +139,7 @@ class Selection {
         if (err) throw err;
         const manager = data.map(
           ({ id, first_name, last_name, role_title }) => ({
-            name: `${first_name} ${last_name} \t ${role_title}`,
+            name: `${first_name} ${last_name} - ${role_title}`,
             value: id,
           })
         );
@@ -109,14 +152,71 @@ class Selection {
     });
   }
 
+  getDepartment() {
+    const sql = `SELECT * FROM department`;
+
+    return new Promise((resolve, reject) => {
+      conn.execute(sql, (err, data) => {
+        if (err) throw err;
+        const department = data.map(
+          ({ id, name }) => ({
+            name: `${name}`,
+            value: [id, name],
+          })
+        );
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(department);
+      });
+    });
+  }
+
+  updateEmployeeRole(params) {
+    const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
+
+    conn
+      .promise()
+      .query(sql, params)
+      .then(() => console.log(cl.blueBright.bgWhite(`employee role updated`)))
+      .catch(console.log);
+  }
+
+  updateEmployeeManager(params) {
+    const sql = `UPDATE employee SET manager_id = ? 
+                WHERE id = ?`;
+
+    conn
+      .promise()
+      .query(sql, params)
+      .then(() =>
+        console.log(cl.blueBright.bgWhite(`employee's manager updated`))
+      )
+      .catch(console.log);
+  }
+
+  deleteDepartment(param) {
+    const sql = `DELETE FROM department
+                WHERE id = ?`;
+
+    conn
+      .promise()
+      .query(sql, param[0])
+      .then(() =>
+        console.log(cl.redBright.bgWhite(`${param[1]} department deleted.`))
+      )
+      .catch(console.log);
+  }
+
   exist() {
     let str = "\nExiting program...";
     const rainbow = chalkAnimation.karaoke(str);
 
     setInterval(() => {
       process.exit();
-    }, 1500);
+    }, 2000);
   }
 }
 
-module.exports = new Selection();
+module.exports = new Employee();

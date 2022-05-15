@@ -1,7 +1,14 @@
 const chalkAnimation = require("chalkercli");
 const inquirer = require("inquirer");
-const choice = require("../models/Employee");
-const {addEmployeeMenu} = require('./addMenu')
+const { addEmployeeMenu, addDepartmentMenu } = require("./addMenu");
+const {
+  updateEmployeeRoleMenu,
+  updateEmployeeManagerMenu,
+  updateEmployeeDepMenu,
+} = require("./updateMenu");
+const employee = require("../models/Employee");
+const { deleteDepartmentMenu } = require("./deleteMenu");
+
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
 ██╔════╝████╗ ████║██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝██╔════╝██╔════╝    ████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝ ██╔════╝██╔══██╗
@@ -29,35 +36,36 @@ const promptUser = () => {
         name: "choice",
         message: "What would you like to do?",
         choices: [
-          {
+          { // employee
             name: "View All Employees",
             value: 1,
           },
           {
-            name: "View Employees by Department",
+            name: "View Employees By Manager",
             value: 2,
           },
           {
-            name: "Add Employee",
+            name: "View Employees By Department",
             value: 3,
           },
           {
-            name: "Update Employee Role",
+            name: "Add Employee",
             value: 4,
           },
           {
-            name: "Update Employee by Managers",
+            name: "Update Employee Role",
             value: 5,
           },
           {
-            name: "Update Employees by Department",
+            name: "Update Employee Manager",
             value: 6,
           },
           {
-            name: "Delete Employees",
+            name: "Delete Employee",
             value: 7,
-          },
+          }, // end of employee
           {
+            // roles
             name: "View All Roles",
             value: 8,
           },
@@ -66,10 +74,11 @@ const promptUser = () => {
             value: 9,
           },
           {
-            name: "Delete roles",
+            name: "Delete Roles",
             value: 10,
-          },
+          }, // end of roles
           {
+            // department
             name: "View All Departments",
             value: 11,
           },
@@ -78,17 +87,18 @@ const promptUser = () => {
             value: 12,
           },
           {
-            name: "View Department Budgets",
+            name: "Delete Department",
             value: 13,
           },
           {
-            name: "Delete Departments",
+            name: "View Department Budgets",
             value: 14,
           },
           {
             name: "Quit",
           },
         ],
+        loop: false,
       },
     ])
     .then((ans) => {
@@ -96,45 +106,52 @@ const promptUser = () => {
 
       switch (selection) {
         case 1:
-          choice.viewAllEmployee();
+          employee.viewAllEmployee();
           break;
         case 2:
-          choice.viewEmployeeByDepartment();
+          // viewEmployeesByManager();
           break;
-        case 3:
+          case 3:
+   //  viewEmployeeByDepartment();
+            break;
+        case 4:
           addEmployeeMenu();
-          // choice.addEmployee();
           break;
-          case 4:
-            break;
-            case 5:
-            break;
-            case 6:
-            break;
-            case 7:
-            break;
-            case 8:
-            break;
-            case 9:
-            break;
-            case 10:
-            break;
-            case 11:
-            break;
-            case 12:
-            break;
-            case 13:
-            break;
-            case 14:
-            break;
+        case 5:
+          updateEmployeeRoleMenu();
+          break;
+        case 6:
+          updateEmployeeManagerMenu();
+          break;
+        case 7:
+         
+          break;
+        case 8:
+          break;
+        case 9:
+          break;
+        case 10:
+          break;
+        case 11:
+          break;
+        case 12:
+          addDepartmentMenu();
+          break;
+        case 13:
+          deleteDepartmentMenu();
+          break;
+        case 14:
+          break;
+        case 15:
+          break;
         default:
-          choice.exist();
+          employee.exist();
       }
-
-      // choice.exist();
+      // promptUser();
     });
 };
 
 module.exports = {
   init,
+  promptUser,
 };
