@@ -58,7 +58,13 @@ class Selection {
     conn
       .promise()
       .query(sql, params)
-      .then(() => console.log(cl.blueBright.bgWhite(`${params[0]}, ${params[1]} added to the Employee directory`)))
+      .then(() =>
+        console.log(
+          cl.blueBright.bgWhite(
+            `${params[0]}, ${params[1]} added to the Employee directory`
+          )
+        )
+      )
       .catch(console.log)
       .then(() => conn.end());
   }
