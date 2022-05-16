@@ -79,6 +79,26 @@ class Employee {
       .catch(console.log);
   }
 
+  viewEmployeeByDepartment(){
+    const sql = `SELECT employee.id, 
+    employee.first_name, 
+    employee.last_name, 
+    role.title, 
+    department.name AS department
+    FROM employee
+    LEFT JOIN role ON employee.role_id = role.id
+    LEFT JOIN department ON role.department_id = department.id
+    ORDER BY department`;
+
+    conn
+    .promise()
+    .query(sql)
+    .then(([rows]) => {
+      display.printEmployeeByDepartment(rows);
+    })
+    .catch(console.log);
+  }
+
   getRole() {
     const sql = `SELECT role.id, role.title FROM role`;
 

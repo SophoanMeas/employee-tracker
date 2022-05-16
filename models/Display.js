@@ -184,8 +184,47 @@ class Display {
 
     p.printTable();
   }
-}
 
+  
+printEmployeeByDepartment(rows){
+  console.log("\n");
+  const p = new Table({
+    title: "List of Employees By Department",
+    columns: [
+      { name: "id", title: "ID", alignment: "left" },
+      {
+        name: "first_name",
+        title: "First Name",
+        alignment: "left",
+        color: "green",
+      },
+      {
+        name: "last_name",
+        title: "Last Name",
+        alignment: "left",
+        color: "green",
+      },
+      {
+        name: "department",
+        title: "Department",
+        alignment: "center",
+        color: "magenta",
+      },
+    ],
+  });
+
+  for (let i = 0; i < rows.length; i++) {
+    p.addRow({
+      id: rows[i].id,
+      first_name: rows[i].first_name,
+      last_name: rows[i].last_name,
+      department: rows[i].department,
+    });
+  }
+
+  p.printTable();
+}
+}
 
 
 module.exports = new Display();
