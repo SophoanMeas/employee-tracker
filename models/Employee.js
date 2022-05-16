@@ -44,6 +44,21 @@ class Employee {
     .catch(console.log);
   }
 
+  viewAllRoles(){
+    const sql = `SELECT role.id, role.title, department.name AS department
+                FROM role
+                INNER JOIN department ON role.department_id = department.id
+                ORDER BY role.title ASC`;
+                
+                conn
+                .promise()
+                .query(sql)
+                .then(([rows]) => {
+                  display.printAllRoles(rows);
+                })
+                .catch(console.log);
+              }
+
   viewEmployeesByManager() {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role
     FROM employee

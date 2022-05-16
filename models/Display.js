@@ -113,6 +113,37 @@ class Display {
     p.printTable();
   }
 
+  printAllRoles(rows){
+    console.log("\n");
+    const p = new Table({
+      title: "The List of Roles",
+      columns: [
+        {
+          name: "role_title",
+          title: "Role Title",
+          alignment: "left",
+          color: "green",
+        },
+        {
+          name: "department_name",
+          title: "Department",
+          alignment: "center",
+          color: "yellow"
+        }
+      ],
+    });
+
+    for (let i = 0; i < rows.length; i++) {
+      p.addRow({
+        role_title: rows[i].title,
+        department_name: rows[i].department
+      });
+    }
+
+    p.printTable();
+
+  }
+
   printEmployeeByManager(rows){
 
   }

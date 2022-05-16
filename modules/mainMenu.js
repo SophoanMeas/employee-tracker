@@ -127,6 +127,7 @@ const promptUser = () => {
          
           break;
         case 8:
+          employee.viewAllRoles();
           break;
         case 9:
           break;
