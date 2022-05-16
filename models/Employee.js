@@ -109,6 +109,23 @@ class Employee {
       .catch(console.log);
   }
 
+  addRole(params){
+    const sql = `INSERT INTO role (title, salary, department_id)
+                VALUES (?, ?, ?)`;
+
+                conn
+                .promise()
+                .query(sql, params)
+                .then(() =>
+                  console.log(
+                    cl.green.bgWhite(
+                      `${params[0]} has been added as a new Role Title`
+                    )
+                  )
+                )
+                .catch(console.log);
+  }
+
   getRole() {
     const sql = `SELECT role.id, role.title FROM role`;
 

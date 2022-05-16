@@ -1,6 +1,6 @@
 const chalkAnimation = require("chalkercli");
 const inquirer = require("inquirer");
-const { addEmployeeMenu, addDepartmentMenu } = require("./addMenu");
+const { addEmployeeMenu, addDepartmentMenu, addRoleMenu } = require("./addMenu");
 const {
   updateEmployeeRoleMenu,
   updateEmployeeManagerMenu,
@@ -130,6 +130,7 @@ const promptUser = () => {
           employee.viewAllRoles();
           break;
         case 9:
+          addRoleMenu();
           break;
         case 10:
           break;

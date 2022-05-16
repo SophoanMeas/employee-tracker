@@ -1,6 +1,6 @@
 const inquirer = require("inquirer");
 const cl = require("cli-color");
-const { getRole, getManager, addEmployee, addDepartment } = require("../models/Employee");
+const { getRole, getManager,  getDepartment, addEmployee, addDepartment, addRole } = require("../models/Employee");
 
 
 function error(string) {
@@ -103,7 +103,55 @@ const addDepartmentMenu = ()=>{
   })
 }
 
+const addRoleMenu = ()=>{
+  return inquirer.prompt([
+    {
+      type: 'input',
+      name: 'role',
+      message: 'What role would you like to add?',
+      validate: (input) => {
+        if (checkString(input)) {
+          return true;
+        } else {
+          error(" Please enter a valid department name!");
+        }
+      },
+    },{
+      type: 'input',
+      name: 'salary',
+      message: 'What is the salary for this role?',
+      validate: (input) =>{
+        if (!isNaN(input)) {
+          return true;
+      } else {
+          error(" Please digits only");
+      }
+    }
+  }
+  ]).then(ans =>{
+    const params = [ans.role, ans.salary];
+
+    getDepartment(params).then((department) =>{
+      inquirer.prompt([
+        {
+          type: 'list',
+          name: 'department',
+          message: 'What is the department?',
+          choices: department,
+          loop: false,
+        }
+      ]).then(selectedDepartment =>{
+        // role_id, salary, department_id
+        params.push(selectedDepartment.department[0])
+        
+        addRole(params);
+      })
+    })
+  })
+}
+
 module.exports = {
   addEmployeeMenu,
   addDepartmentMenu,
+  addRoleMenu,
 };
