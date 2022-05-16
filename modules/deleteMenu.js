@@ -1,5 +1,23 @@
 const inquirer = require("inquirer");
-const {getDepartment, deleteDepartment, deleteRole, getRole} = require('../models/Employee')
+const {getDepartment, getRole, getEmployee, deleteEmployee, deleteDepartment, deleteRole,} = require('../models/Employee')
+
+const deleteEmployeeMenu = () =>{
+    getEmployee().then((employee) =>{
+        return inquirer.prompt([
+            {
+                type: 'list',
+                name: 'employee_name',
+                message: 'Which employee do you want to delete?',
+                choices: employee,
+                loop: false,
+            }
+        ]).then(selectedEmployee =>{
+            console.log()
+            deleteEmployee(selectedEmployee.employee_name);
+        })
+    })
+}   
+
 
 const deleteDepartmentMenu = () =>{
     getDepartment().then((department) =>{
@@ -34,6 +52,7 @@ const deleteRoleMenu = () =>{
 }
 
 module.exports = {
+    deleteEmployeeMenu,
     deleteDepartmentMenu,
     deleteRoleMenu,
 }

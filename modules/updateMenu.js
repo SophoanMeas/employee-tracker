@@ -21,7 +21,7 @@ const updateEmployeeRoleMenu = () => {
       ])
       .then((selectedEmployee) => {
         const params = [];
-        const employee = selectedEmployee.employee;
+        const employee = selectedEmployee.employee[0];
         params.push(employee);
 
         getRole().then((role) => {
@@ -68,7 +68,7 @@ const updateEmployeeManagerMenu = () => {
       ])
       .then((selectedEmployee) => {
         const params = [];
-        const employee_name = selectedEmployee.name;
+        const employee_name = selectedEmployee.name[0];
         params.push(employee_name); // employee id
 
         getManager().then((manager) => {
@@ -109,7 +109,7 @@ const updateEmployeeDepMenu = () =>{
       }
     ]).then(selectedEmployee =>{
       const params = [];
-      const employee = selectedEmployee.employee
+      const employee = selectedEmployee.employee[0]
       params.push(employee)
 
     })

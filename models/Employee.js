@@ -75,53 +75,6 @@ class Employee {
       .catch(console.log);
   }
 
-  addEmployee(params) {
-    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
-                 VALUES (?, ?, ?, ?)`;
-
-    conn
-      .promise()
-      .query(sql, params)
-      .then(() =>
-        console.log(
-          cl.blueBright.bgWhite(
-            `${params[0]}, ${params[1]} added to the Employee directory`
-          )
-        )
-      )
-      .catch(console.log);
-  }
-
-  addDepartment(param) {
-    const sql = `INSERT INTO department (name)
-                VALUES (?)`;
-
-    conn
-      .promise()
-      .query(sql, param)
-      .then(() =>
-        console.log(
-          cl.blueBright.bgWhite(`${param} department added successfully`)
-        )
-      )
-      .catch(console.log);
-  }
-
-  addRole(params) {
-    const sql = `INSERT INTO role (title, salary, department_id)
-                VALUES (?, ?, ?)`;
-
-    conn
-      .promise()
-      .query(sql, params)
-      .then(() =>
-        console.log(
-          cl.green.bgWhite(`${params[0]} has been added as a new Role Title`)
-        )
-      )
-      .catch(console.log);
-  }
-
   getRole() {
     const sql = `SELECT role.id, role.title FROM role`;
 
@@ -153,7 +106,7 @@ class Employee {
         const employee = data.map(
           ({ id, first_name, last_name, role_title }) => ({
             name: `${first_name}, ${last_name} - ${role_title}`,
-            value: id,
+            value: [id, first_name, last_name]
           })
         );
         if (err) {
@@ -207,13 +160,60 @@ class Employee {
     });
   }
 
+  addEmployee(params) {
+    const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
+                 VALUES (?, ?, ?, ?)`;
+
+    conn
+      .promise()
+      .query(sql, params)
+      .then(() =>
+        console.log(
+          cl.blueBright.bgWhite(
+            `${params[0]}, ${params[1]} was added to the Employee directory`
+          )
+        )
+      )
+      .catch(console.log);
+  }
+
+  addDepartment(param) {
+    const sql = `INSERT INTO department (name)
+                VALUES (?)`;
+
+    conn
+      .promise()
+      .query(sql, param)
+      .then(() =>
+        console.log(
+          cl.blueBright.bgWhite(`${param} department was added successfully`)
+        )
+      )
+      .catch(console.log);
+  }
+
+  addRole(params) {
+    const sql = `INSERT INTO role (title, salary, department_id)
+                VALUES (?, ?, ?)`;
+
+    conn
+      .promise()
+      .query(sql, params)
+      .then(() =>
+        console.log(
+          cl.green.bgWhite(`${params[0]} has been added as a new Role Title`)
+        )
+      )
+      .catch(console.log);
+  }
+
   updateEmployeeRole(params) {
     const sql = `UPDATE employee SET role_id = ? WHERE id = ?`;
 
     conn
       .promise()
       .query(sql, params)
-      .then(() => console.log(cl.blueBright.bgWhite(`employee role updated`)))
+      .then(() => console.log(cl.blueBright.bgWhite(`${param[1]}, ${param[2]} role was updated successfully.`)))
       .catch(console.log);
   }
 
@@ -225,9 +225,22 @@ class Employee {
       .promise()
       .query(sql, params)
       .then(() =>
-        console.log(cl.blueBright.bgWhite(`employee's manager updated`))
+        console.log(cl.blueBright.bgWhite(`${param[1]}, ${param[2]} manager was updated successfully.`))
       )
       .catch(console.log);
+  }
+
+  deleteEmployee(param){
+    const sql = `DELETE FROM employee WHERE id = ?`;
+    
+    conn
+    .promise()
+    .query(sql, param[0])
+    .then(() =>
+      console.log(cl.redBright.bgWhite(`${param[1]}, ${param[2]} was removed from the employee list.`))
+    )
+    .catch(console.log);
+
   }
 
   deleteDepartment(param) {
@@ -238,7 +251,7 @@ class Employee {
       .promise()
       .query(sql, param[0])
       .then(() =>
-        console.log(cl.redBright.bgWhite(`${param[1]} department deleted.`))
+        console.log(cl.redBright.bgWhite(`${param[1]} department was deleted successfully.`))
       )
       .catch(console.log);
   }
@@ -251,7 +264,7 @@ class Employee {
       .promise()
       .query(sql, params[0])
       .then(() =>
-        console.log(cl.redBright.bgWhite(`${params[1]} role deleted successfully.`))
+        console.log(cl.redBright.bgWhite(`${params[1]} role was deleted successfully.`))
       )
       .catch(console.log);
   }

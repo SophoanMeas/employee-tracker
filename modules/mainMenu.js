@@ -7,7 +7,7 @@ const {
   updateEmployeeDepMenu,
 } = require("./updateMenu");
 const employee = require("../models/Employee");
-const { deleteDepartmentMenu, deleteRoleMenu } = require("./deleteMenu");
+const { deleteEmployeeMenu, deleteDepartmentMenu, deleteRoleMenu } = require("./deleteMenu");
 
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
@@ -124,7 +124,7 @@ const promptUser = () => {
           updateEmployeeManagerMenu();
           break;
         case 7:
-         
+         deleteEmployeeMenu();
           break;
         case 8:
           employee.viewAllRoles();
