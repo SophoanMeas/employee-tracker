@@ -112,7 +112,6 @@ class Employee {
     .promise()
     .query(sql)
     .then(([rows]) => {
-      console.log('hi')
       display.printBudget(rows);
     })
     .catch(console.log);
@@ -212,7 +211,7 @@ class Employee {
       .query(sql, params)
       .then(() =>
         console.log(
-          cl.blueBright.bgWhite(
+          cl.greenBright.bgWhite(
             `${params[0]}, ${params[1]} was added to the Employee directory`
           )
         )
@@ -229,7 +228,7 @@ class Employee {
       .query(sql, param)
       .then(() =>
         console.log(
-          cl.blueBright.bgWhite(`${param} department was added successfully`)
+          cl.greenBright.bgWhite(`${param} department was added successfully`)
         )
       )
       .catch(console.log);
@@ -256,7 +255,7 @@ class Employee {
     conn
       .promise()
       .query(sql, params)
-      .then(() => console.log(cl.blueBright.bgWhite(`${param[1]}, ${param[2]} role was updated successfully.`)))
+      .then(() => console.log(cl.blueBright.bgWhite(`${params[2]}, ${params[3]} role was updated successfully.`)))
       .catch(console.log);
   }
 
@@ -268,7 +267,7 @@ class Employee {
       .promise()
       .query(sql, params)
       .then(() =>
-        console.log(cl.blueBright.bgWhite(`${param[1]}, ${param[2]} manager was updated successfully.`))
+        console.log(cl.blueBright.bgWhite(`${params[2]}, ${params[3]}'s manager was updated successfully.`))
       )
       .catch(console.log);
   }

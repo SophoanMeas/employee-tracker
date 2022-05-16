@@ -24,6 +24,7 @@ const updateEmployeeRoleMenu = () => {
         const employee = selectedEmployee.employee[0];
         params.push(employee);
 
+        console.log(params);
         getRole().then((role) => {
           inquirer
             .prompt([
@@ -47,7 +48,9 @@ const updateEmployeeRoleMenu = () => {
               // employee = index 0  role = index 1, we want role_id = index 0 employee_id = idnex 1
               params[0] = role[0];
               params[1] = employee;
-              
+              params.push(selectedEmployee.employee[1])
+              params.push(selectedEmployee.employee[2])
+              console.log(params)
               updateEmployeeRole(params);
             });
         });
@@ -68,8 +71,8 @@ const updateEmployeeManagerMenu = () => {
       ])
       .then((selectedEmployee) => {
         const params = [];
-        const employee_name = selectedEmployee.name[0];
-        params.push(employee_name); // employee id
+        const employee = selectedEmployee.name[0];
+        params.push(employee); // employee id
 
         getManager().then((manager) => {
           inquirer
@@ -88,8 +91,11 @@ const updateEmployeeManagerMenu = () => {
               // change the index employee_id & manager_id to reflect mysql parameters ordering
               // employee_id = index 0  manager_id = index 1, we want manager_id to be at index 0
               params[0] = manager;
-              params[1] = employee_name;
-              // [employee_id, manager_id]
+              params[1] = employee;
+              params.push(selectedEmployee.name[1])
+              params.push(selectedEmployee.name[2])
+              // [employee_id, manager_id, first name, last name]
+              // console.log(params)
               updateEmployeeManager(params);
             });
         });
