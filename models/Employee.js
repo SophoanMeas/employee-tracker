@@ -99,6 +99,25 @@ class Employee {
     .catch(console.log);
   }
 
+  viewBudget(){
+
+    const sql = `SELECT role.title, role.salary as salary, department.name AS department,
+        SUM(salary) as total_budget
+        FROM employee
+        LEFT JOIN role ON employee.role_id = role.id
+        LEFT JOIN department ON role.department_id = department.id
+        GROUP BY department_id`;
+
+    conn
+    .promise()
+    .query(sql)
+    .then(([rows]) => {
+      console.log('hi')
+      display.printBudget(rows);
+    })
+    .catch(console.log);
+  }
+
   getRole() {
     const sql = `SELECT role.id, role.title FROM role`;
 

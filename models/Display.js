@@ -185,7 +185,6 @@ class Display {
     p.printTable();
   }
 
-  
 printEmployeeByDepartment(rows){
   console.log("\n");
   const p = new Table({
@@ -224,7 +223,48 @@ printEmployeeByDepartment(rows){
 
   p.printTable();
 }
-}
 
+printBudget(rows){
+  console.log("\n");
+  const p = new Table({
+    title: "Total Utilized Budget of a Department",
+    columns: [
+      {
+        name: "role_title",
+        title: "Role Title",
+        alignment: "center",
+        color: "green",
+      },
+      {
+        name: "salary",
+        title: "Salary",
+        alignment: 'left',
+      },
+      {
+        name: "department",
+        title: "Department",
+        alignment: "left",
+        color: "cyan",
+      },
+      {
+        name: "total_budget",
+        title: "Total Budget",
+        alignment: "left",
+        color: "yellow"
+      }
+    ],
+  });
+
+  for (let i = 0; i < rows.length; i++) {
+    p.addRow({
+      role_title: rows[i].title,
+      salary: `$${rows[i].salary}`,
+      department: rows[i].department,
+      total_budget: `$${rows[i].total_budget}`,
+    });
+  }
+  p.printTable();
+}
+}
 
 module.exports = new Display();

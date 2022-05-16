@@ -145,8 +145,7 @@ const promptUser = () => {
           deleteDepartmentMenu();
           break;
         case 14:
-          break;
-        case 15:
+          employee.viewBudget();
           break;
         default:
           employee.exist();
