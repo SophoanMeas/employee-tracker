@@ -8,6 +8,7 @@ const {
 } = require("./updateMenu");
 const employee = require("../models/Employee");
 const { deleteEmployeeMenu, deleteDepartmentMenu, deleteRoleMenu } = require("./deleteMenu");
+const { viewEmployeesByManager } = require("../models/Employee");
 
 const welcome = `
 ███████╗███╗   ███╗██████╗ ██╗      ██████╗ ██╗   ██╗███████╗███████╗    ███╗   ███╗ █████╗ ███╗   ██╗ █████╗  ██████╗ ███████╗██████╗ 
@@ -109,7 +110,7 @@ const promptUser = () => {
           employee.viewAllEmployee();
           break;
         case 2:
-          // viewEmployeesByManager();
+          viewEmployeesByManager();
           break;
           case 3:
    //  viewEmployeeByDepartment();

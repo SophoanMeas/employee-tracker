@@ -60,11 +60,15 @@ class Employee {
   }
 
   viewEmployeesByManager() {
-    const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role
+    const sql = `SELECT employee.id, 
+    employee.first_name, 
+    employee.last_name, 
+    role.title, 
+    CONCAT (manager.first_name, " ", manager.last_name) AS manager
     FROM employee
     LEFT JOIN role ON employee.role_id = role.id
-    WHERE role.title IN ('Manager', 'Department Manager', 'Chief Executive Officer')
-    ORDER BY role.title ASC`;
+    LEFT JOIN employee manager ON employee.manager_id = manager.id
+    ORDER BY manager;`;
 
     conn
       .promise()
