@@ -130,7 +130,7 @@ const menu = async () => {
           await deleteDepartmentMenu();
           break;
         case 14:
-          viewBudget();
+          employee.viewBudget();
           break;
         default:
           exist();
