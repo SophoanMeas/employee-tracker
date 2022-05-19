@@ -9,13 +9,12 @@
     "console-table-printer": "^2.11.0",
     "dotenv": "^16.0.1",
     "inquirer": "^8.2.4",
-    "mysql2": "^2.3.3",
-    "nodemon": "^2.0.16"
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "server.js"
   },
   "repository": {
     "type": "git",
