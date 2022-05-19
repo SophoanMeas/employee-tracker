@@ -11,9 +11,3 @@ const connection = mysql.createConnection({
 });
 
 module.exports = connection;
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: process.env.DB_PASSWORD,
-//   database: 'employees'
-// });

@@ -113,7 +113,7 @@ class Display {
     p.printTable();
   }
 
-  printAllRoles(rows){
+  printAllRoles(rows) {
     console.log("\n");
     const p = new Table({
       title: "The List of Roles",
@@ -128,23 +128,22 @@ class Display {
           name: "department_name",
           title: "Department",
           alignment: "center",
-          color: "yellow"
-        }
+          color: "yellow",
+        },
       ],
     });
 
     for (let i = 0; i < rows.length; i++) {
       p.addRow({
         role_title: rows[i].title,
-        department_name: rows[i].department
+        department_name: rows[i].department,
       });
     }
 
     p.printTable();
-
   }
 
-  printEmployeeByManager(rows){
+  printEmployeeByManager(rows) {
     console.log("\n");
     const p = new Table({
       title: "List of Employees By Manager",
@@ -185,86 +184,86 @@ class Display {
     p.printTable();
   }
 
-printEmployeeByDepartment(rows){
-  console.log("\n");
-  const p = new Table({
-    title: "List of Employees By Department",
-    columns: [
-      { name: "id", title: "ID", alignment: "left" },
-      {
-        name: "first_name",
-        title: "First Name",
-        alignment: "left",
-        color: "green",
-      },
-      {
-        name: "last_name",
-        title: "Last Name",
-        alignment: "left",
-        color: "green",
-      },
-      {
-        name: "department",
-        title: "Department",
-        alignment: "center",
-        color: "magenta",
-      },
-    ],
-  });
-
-  for (let i = 0; i < rows.length; i++) {
-    p.addRow({
-      id: rows[i].id,
-      first_name: rows[i].first_name,
-      last_name: rows[i].last_name,
-      department: rows[i].department,
+  printEmployeeByDepartment(rows) {
+    console.log("\n");
+    const p = new Table({
+      title: "List of Employees By Department",
+      columns: [
+        { name: "id", title: "ID", alignment: "left" },
+        {
+          name: "first_name",
+          title: "First Name",
+          alignment: "left",
+          color: "green",
+        },
+        {
+          name: "last_name",
+          title: "Last Name",
+          alignment: "left",
+          color: "green",
+        },
+        {
+          name: "department",
+          title: "Department",
+          alignment: "center",
+          color: "magenta",
+        },
+      ],
     });
+
+    for (let i = 0; i < rows.length; i++) {
+      p.addRow({
+        id: rows[i].id,
+        first_name: rows[i].first_name,
+        last_name: rows[i].last_name,
+        department: rows[i].department,
+      });
+    }
+
+    p.printTable();
   }
 
-  p.printTable();
-}
-
-printBudget(rows){
-  console.log("\n");
-  const p = new Table({
-    title: "Total Utilized Budget of a Department",
-    columns: [
-      {
-        name: "role_title",
-        title: "Role Title",
-        alignment: "center",
-        color: "green",
-      },
-      {
-        name: "salary",
-        title: "Salary",
-        alignment: 'left',
-      },
-      {
-        name: "department",
-        title: "Department",
-        alignment: "left",
-        color: "cyan",
-      },
-      {
-        name: "total_budget",
-        title: "Total Budget",
-        alignment: "left",
-        color: "yellow"
-      }
-    ],
-  });
-
-  for (let i = 0; i < rows.length; i++) {
-    p.addRow({
-      role_title: rows[i].title,
-      salary: `$${rows[i].salary}`,
-      department: rows[i].department,
-      total_budget: `$${rows[i].total_budget}`,
+  printBudget(rows) {
+    console.log("\n");
+    const p = new Table({
+      title: "Total Utilized Budget of a Department",
+      columns: [
+        {
+          name: "role_title",
+          title: "Role Title",
+          alignment: "center",
+          color: "green",
+        },
+        {
+          name: "salary",
+          title: "Salary",
+          alignment: "left",
+        },
+        {
+          name: "department",
+          title: "Department",
+          alignment: "left",
+          color: "cyan",
+        },
+        {
+          name: "total_budget",
+          title: "Total Budget",
+          alignment: "left",
+          color: "yellow",
+        },
+      ],
     });
+
+    for (let i = 0; i < rows.length; i++) {
+      p.addRow({
+        role_title: rows[i].title,
+        salary: `$${rows[i].salary}`,
+        department: rows[i].department,
+        total_budget: `$${rows[i].total_budget}`,
+      });
+    }
+    p.printTable();
   }
-  p.printTable();
-}
 }
 
 module.exports = new Display();

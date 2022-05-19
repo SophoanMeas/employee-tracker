@@ -158,23 +158,6 @@ class Employee {
       });
     });
   }
-
-  addNoManager(params) {
-    const sql = `UPDATE employee SET role_id = ?,
-    manager_id = ? WHERE id = ?`;
-
-    conn
-    .promise()
-    .query(sql, params)
-    .then(() =>
-      console.log(
-        cl.blueBright.bgWhite(
-          `\n${params[2]}, ${params[4]}'s role was updated to ${params[5]}.`
-        )
-      )
-    )
-    .catch(console.log);
-  }
   getManager() {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role_title
                 FROM employee
@@ -222,16 +205,16 @@ class Employee {
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                  VALUES (?, ?, ?, ?)`;
 
-    return conn
+    conn
       .promise()
       .query(sql, params)
-      .then(() => {
+      .then(() =>
         console.log(
           cl.greenBright.bgWhite(
-            `\n${params[0]}, ${params[1]} was added to the Employee directory`
+            `${params[0]}, ${params[1]} was added to the Employee directory`
           )
-        );
-      })
+        )
+      )
       .catch(console.log);
   }
 
@@ -244,7 +227,7 @@ class Employee {
       .query(sql, param)
       .then(() =>
         console.log(
-          cl.greenBright.bgWhite(`\n${param} department was added successfully`)
+          cl.greenBright.bgWhite(`${param} department was added successfully`)
         )
       )
       .catch(console.log);
@@ -259,7 +242,7 @@ class Employee {
       .query(sql, params)
       .then(() =>
         console.log(
-          cl.greenBright.bgWhite(`\n${params[0]} has been added as a new role title`)
+          cl.green.bgWhite(`${params[0]} has been added as a new Role Title`)
         )
       )
       .catch(console.log);
@@ -274,7 +257,7 @@ class Employee {
       .then(() =>
         console.log(
           cl.blueBright.bgWhite(
-            `\n${params[2]}, ${params[3]}'s role was updated to ${params[4]}.`
+            `${params[2]}, ${params[3]} role was updated successfully.`
           )
         )
       )
@@ -291,7 +274,7 @@ class Employee {
       .then(() =>
         console.log(
           cl.blueBright.bgWhite(
-            `\n ${params[2]}, ${params[3]}'s manager was updated successfully.`
+            `${params[2]}, ${params[3]}'s manager was updated successfully.`
           )
         )
       )
@@ -307,7 +290,7 @@ class Employee {
       .then(() =>
         console.log(
           cl.redBright.bgWhite(
-            `\n ${param[1]}, ${param[2]} was removed from the employee list.`
+            `${param[1]}, ${param[2]} was removed from the employee list.`
           )
         )
       )
@@ -324,7 +307,7 @@ class Employee {
       .then(() =>
         console.log(
           cl.redBright.bgWhite(
-            `\n${param[1]} department was deleted successfully.`
+            `${param[1]} department was deleted successfully.`
           )
         )
       )
@@ -340,10 +323,19 @@ class Employee {
       .query(sql, params[0])
       .then(() =>
         console.log(
-          cl.redBright.bgWhite(`\n${params[1]} role was deleted successfully.`)
+          cl.redBright.bgWhite(`${params[1]} role was deleted successfully.`)
         )
       )
       .catch(console.log);
+  }
+
+  exist() {
+    let str = "\nExiting program...";
+    const rainbow = chalkAnimation.karaoke(str);
+
+    setInterval(() => {
+      process.exit();
+    }, 2000);
   }
 }
 
