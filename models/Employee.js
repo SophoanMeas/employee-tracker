@@ -79,7 +79,7 @@ class Employee {
       .catch(console.log);
   }
 
-  viewEmployeeByDepartment(){
+  viewEmployeeByDepartment() {
     const sql = `SELECT employee.id, 
     employee.first_name, 
     employee.last_name, 
@@ -91,16 +91,15 @@ class Employee {
     ORDER BY department`;
 
     conn
-    .promise()
-    .query(sql)
-    .then(([rows]) => {
-      display.printEmployeeByDepartment(rows);
-    })
-    .catch(console.log);
+      .promise()
+      .query(sql)
+      .then(([rows]) => {
+        display.printEmployeeByDepartment(rows);
+      })
+      .catch(console.log);
   }
 
-  viewBudget(){
-
+  viewBudget() {
     const sql = `SELECT role.title, role.salary as salary, department.name AS department,
         SUM(salary) as total_budget
         FROM employee
@@ -109,12 +108,12 @@ class Employee {
         GROUP BY department_id`;
 
     conn
-    .promise()
-    .query(sql)
-    .then(([rows]) => {
-      display.printBudget(rows);
-    })
-    .catch(console.log);
+      .promise()
+      .query(sql)
+      .then(([rows]) => {
+        display.printBudget(rows);
+      })
+      .catch(console.log);
   }
 
   getRole() {
@@ -148,7 +147,7 @@ class Employee {
         const employee = data.map(
           ({ id, first_name, last_name, role_title }) => ({
             name: `${first_name}, ${last_name} - ${role_title}`,
-            value: [id, first_name, last_name]
+            value: [id, first_name, last_name],
           })
         );
         if (err) {
@@ -158,6 +157,23 @@ class Employee {
         resolve(employee);
       });
     });
+  }
+
+  addNoManager(params) {
+    const sql = `UPDATE employee SET role_id = ?,
+    manager_id = ? WHERE id = ?`;
+
+    conn
+    .promise()
+    .query(sql, params)
+    .then(() =>
+      console.log(
+        cl.blueBright.bgWhite(
+          `\n${params[2]}, ${params[4]}'s role was updated to ${params[5]}.`
+        )
+      )
+    )
+    .catch(console.log);
   }
   getManager() {
     const sql = `SELECT employee.id, employee.first_name, employee.last_name, role.title AS role_title
@@ -206,16 +222,16 @@ class Employee {
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id)
                  VALUES (?, ?, ?, ?)`;
 
-    conn
+    return conn
       .promise()
       .query(sql, params)
-      .then(() =>
+      .then(() => {
         console.log(
           cl.greenBright.bgWhite(
-            `${params[0]}, ${params[1]} was added to the Employee directory`
+            `\n${params[0]}, ${params[1]} was added to the Employee directory`
           )
-        )
-      )
+        );
+      })
       .catch(console.log);
   }
 
@@ -228,7 +244,7 @@ class Employee {
       .query(sql, param)
       .then(() =>
         console.log(
-          cl.greenBright.bgWhite(`${param} department was added successfully`)
+          cl.greenBright.bgWhite(`\n${param} department was added successfully`)
         )
       )
       .catch(console.log);
@@ -243,7 +259,7 @@ class Employee {
       .query(sql, params)
       .then(() =>
         console.log(
-          cl.green.bgWhite(`${params[0]} has been added as a new Role Title`)
+          cl.greenBright.bgWhite(`\n${params[0]} has been added as a new role title`)
         )
       )
       .catch(console.log);
@@ -255,7 +271,13 @@ class Employee {
     conn
       .promise()
       .query(sql, params)
-      .then(() => console.log(cl.blueBright.bgWhite(`${params[2]}, ${params[3]} role was updated successfully.`)))
+      .then(() =>
+        console.log(
+          cl.blueBright.bgWhite(
+            `\n${params[2]}, ${params[3]}'s role was updated to ${params[4]}.`
+          )
+        )
+      )
       .catch(console.log);
   }
 
@@ -267,22 +289,29 @@ class Employee {
       .promise()
       .query(sql, params)
       .then(() =>
-        console.log(cl.blueBright.bgWhite(`${params[2]}, ${params[3]}'s manager was updated successfully.`))
+        console.log(
+          cl.blueBright.bgWhite(
+            `\n ${params[2]}, ${params[3]}'s manager was updated successfully.`
+          )
+        )
       )
       .catch(console.log);
   }
 
-  deleteEmployee(param){
+  deleteEmployee(param) {
     const sql = `DELETE FROM employee WHERE id = ?`;
-    
-    conn
-    .promise()
-    .query(sql, param[0])
-    .then(() =>
-      console.log(cl.redBright.bgWhite(`${param[1]}, ${param[2]} was removed from the employee list.`))
-    )
-    .catch(console.log);
 
+    conn
+      .promise()
+      .query(sql, param[0])
+      .then(() =>
+        console.log(
+          cl.redBright.bgWhite(
+            `\n ${param[1]}, ${param[2]} was removed from the employee list.`
+          )
+        )
+      )
+      .catch(console.log);
   }
 
   deleteDepartment(param) {
@@ -293,7 +322,11 @@ class Employee {
       .promise()
       .query(sql, param[0])
       .then(() =>
-        console.log(cl.redBright.bgWhite(`${param[1]} department was deleted successfully.`))
+        console.log(
+          cl.redBright.bgWhite(
+            `\n${param[1]} department was deleted successfully.`
+          )
+        )
       )
       .catch(console.log);
   }
@@ -306,18 +339,11 @@ class Employee {
       .promise()
       .query(sql, params[0])
       .then(() =>
-        console.log(cl.redBright.bgWhite(`${params[1]} role was deleted successfully.`))
+        console.log(
+          cl.redBright.bgWhite(`\n${params[1]} role was deleted successfully.`)
+        )
       )
       .catch(console.log);
-  }
-
-  exist() {
-    let str = "\nExiting program...";
-    const rainbow = chalkAnimation.karaoke(str);
-
-    setInterval(() => {
-      process.exit();
-    }, 2000);
   }
 }
 

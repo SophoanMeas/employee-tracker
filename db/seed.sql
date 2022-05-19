@@ -23,13 +23,13 @@ VALUES
     ('Human Resources', 67000, 6),
     ('Quality Assurance Specialist', 63000, 7),
     ('Manager', 90000, 8),
-    ('Department Manager', 100000, 8),
+    ('Department Manager', 150000, 8),
     ('Chief Executive Officer', 350000, 9);
 
 INSERT INTO
     employee (first_name, last_name, role_id, manager_id)
 VALUES
-    ('Sophoan', 'Meas', 11, NULL),
+    ('Sophoan', 'Meas', 11, NULL);
     ('Lidia', 'Lyall', 10, 40),
     ('Amrita', 'Berti', 9, 42),
     ('Valentina', 'Wouters', 8, 42),
