@@ -15,16 +15,16 @@ const welcome = `
                                                                                                                                        
 `;
 
-let run = true;
-const init = async () => {
-  // const rainbow = chalkAnimation.rainbow(welcome);
+const init = () => {
+  const rainbow = chalkAnimation.rainbow(welcome);
 
-  // setTimeout(() => {
-  //   rainbow.stop(); // Animation stops
-  //   promptUser();
-  // }, 3000);
-
-  while (run) await menu();
+  setTimeout(async () => {
+    rainbow.stop(); // Animation stops
+    while (true) {
+      console.clear()
+      await menu();
+    }
+  }, 3000);
 };
 
 function error(string) {
@@ -88,6 +88,7 @@ const menu = async () => {
       },
     ])
     .then(async (answer) => {
+    
       switch (answer.choice) {
         case 1:
           employee.viewAllEmployee();
@@ -135,6 +136,7 @@ const menu = async () => {
           exist();
       }
     });
+  
 };
 
 const addEmployeeMenu = async () => {
