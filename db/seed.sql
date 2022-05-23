@@ -26,19 +26,18 @@ VALUES
     ('Department Manager', 150000, 8),
     ('Chief Executive Officer', 350000, 9);
 
-INSERT INTO
-    employee (first_name, last_name, role_id, manager_id)
-VALUES
-    ('Sophoan', 'Meas', 11, NULL);
-    ('Lidia', 'Lyall', 10, 40),
-    ('Amrita', 'Berti', 9, 42),
-    ('Valentina', 'Wouters', 8, 42),
-    ('Feige', 'Bai', 7, 40),
-    ('Nova', 'Perić', 6, 43),
-    ('Tiên', 'Knopp', 6, 43),
-    ('Einar', 'Gori', 5, 40),
-    ('Gregor', 'O''Donnell', 4, 42),
-    ('Roshan', 'Southgate', 3, 42),
-    ('Cinderella', 'Padilla', 2, 43),
-    ('Ileana', 'Bourreau', 2, 43),
-    ('Kassandros', 'David', 1, 43);
+INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES 
+('Sophoan', 'Meas', 11, NULL), 
+('James', 'Brown', 10, 1 ),
+('Lidia', 'Lyall', 9, 2), 
+('Amrita', 'Berti', 9, 2), 
+('Valentina', 'Wouters', 8, 2),
+('Feige', 'Bai', 7, 1),
+('Nova', 'Perić', 6, 2),
+('Tiên', 'Knopp', 6, 2),
+('Einar', 'Gori', 5, 3),
+('Gregor', 'O''Donnell', 4, 3),
+('Roshan', 'Southgate', 3, 3),
+('Cinderella', 'Padilla', 2, 2),
+('Ileana', 'Bourreau', 2, 2),
+('Kassandros', 'David', 1, 3);
