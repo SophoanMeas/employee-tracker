@@ -43,7 +43,7 @@ The database contains the following tables;
 # Usage
 ### Walkthrough Videos 🎥
 
-* <a href="https://note-taker-pon.herokuapp.com/" target="_blank"><h4> *Full Demo Video*</a>
+* <a href="https://drive.google.com/file/d/1liIaEnv8ExPunZA502CLPYbZ46KUkyuv/view?usp=sharing" target="_blank"><h4> *Full Demo Video*</a>
 # Technologies
 Node Package Manager
 * mysql2
