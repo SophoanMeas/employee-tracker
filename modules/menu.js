@@ -15,15 +15,18 @@ const welcome = `
                                                                                                                                        
 `;
 
+let run = true;
+
 const init = () => {
 	const rainbow = chalkAnimation.rainbow(welcome);
 
 	setTimeout(async () => {
 		rainbow.stop(); // Animation stops
-		while (true) {
+		while (run) {
 			console.clear();
 			await menu();
 		}
+		exist();
 	}, 3000);
 };
 
@@ -52,12 +55,8 @@ async function noManager(params) {
 }
 
 function exist() {
-	let str = '\nExiting program...';
-	const rainbow = chalkAnimation.karaoke(str);
-
-	setInterval(() => {
-		connection.end();
-	}, 1000);
+	console.log('\nExiting program...');
+	connection.end();
 }
 
 const menu = async () => {
@@ -132,7 +131,7 @@ const menu = async () => {
 					employee.viewBudget();
 					break;
 				default:
-					exist();
+					run = false;
 			}
 		});
 };
@@ -255,7 +254,7 @@ const addRoleMenu = async () => {
 				name: 'salary',
 				message: 'What is the salary for this role?',
 				validate: (input) => {
-					if (!isNaN(input)) {
+					if (!isNaN(input || input == null)) {
 						return true;
 					} else {
 						error(' Please digits only');

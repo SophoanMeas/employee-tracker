@@ -83,5 +83,7 @@ Have a question? Feel free to drop me an email.
 ---
 ## Screenshot
 
-![Alt text](./assets/images/postman_screenshot.png)
+![Alt text](./assets/images/screenshot1.png)
+
+![Alt text](./assets/images/screenshot2.png)
 

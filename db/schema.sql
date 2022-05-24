@@ -3,8 +3,6 @@ DROP DATABASE IF EXISTS employees;
 CREATE DATABASE employees;
 USE employees;
 
-ALTER TABLE employee AUTO_INCREMENT = 1
-
 CREATE TABLE department(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(30) UNIQUE NOT NULL
@@ -30,3 +28,5 @@ CREATE TABLE employee(
     CONSTRAINT fk_role FOREIGN KEY (role_id) REFERENCES role(id) ON DELETE CASCADE,
     CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES employee(id) ON DELETE SET NULL
 );
+
+ALTER TABLE employee AUTO_INCREMENT = 1
